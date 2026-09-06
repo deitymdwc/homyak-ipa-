@@ -1,7 +1,6 @@
 # Системные файлы Godot
 .godot/
 *.import
-export_presets.cfg
 
 # Скомпилированные приложения
 *.apk
