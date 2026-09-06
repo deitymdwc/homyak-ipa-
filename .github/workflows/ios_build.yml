@@ -40,9 +40,15 @@ jobs:
 
       - name: Fill all empty icon slots
         run: |
-          sed -i 's/icons\/[^\"]*=""/icons\/app_store_1024x1024="res:\/\/icon.svg"/g' export_presets.cfg
-          sed -i 's/=""/="res:\/\/icon.svg"/g' export_presets.cfg
-          
+          python3 -c "
+          with open('export_presets.cfg', 'r') as f:
+              content = f.read()
+          import re
+          content = re.sub(r'icons/([^=]*)=\"\"', r'icons/\1=\"res://icon.svg\"', content)
+          with open('export_presets.cfg', 'w') as f:
+              f.write(content)
+          "
+
       # 3. Импорт ресурсов и Экспорт Xcode-проекта
       - name: Import Assets & Export Xcode Project
         run: |
