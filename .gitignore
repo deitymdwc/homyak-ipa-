@@ -1,0 +1,15 @@
+# Системные файлы Godot
+.godot/
+*.import
+export_presets.cfg
+
+# Скомпилированные приложения
+*.apk
+*.exe
+*.ipa
+*.a
+
+# Экспортированные библиотеки и Xcode фреймворки
+*.xcframework/
+*.xcodeproj/
+/android/

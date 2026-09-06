@@ -1,0 +1,272 @@
+[gd_scene format=3 uid="uid://df5feccra5bpb"]
+
+[ext_resource type="Script" uid="uid://clfdgevapg2dj" path="res://control.gd" id="1_0e48y"]
+[ext_resource type="Texture2D" uid="uid://xxpctond2s4e" path="res://assets/skins/default.jpg" id="2_epypp"]
+[ext_resource type="AudioStream" uid="uid://cyvnlwxddqx4b" path="res://РЕП ПРО ТВИРИКА 2026.wav" id="3_epypp"]
+[ext_resource type="Texture2D" uid="uid://cy8tqixeu2ixo" path="res://assets/skins/litvin.jpg" id="4_rj586"]
+[ext_resource type="Texture2D" uid="uid://ddpc2ki6jmtb7" path="res://assets/skins/pozzy.jpg" id="5_4d7sh"]
+[ext_resource type="Texture2D" uid="uid://cqwab3x3eulx5" path="res://assets/skins/mellstroy.jpg" id="6_ir8iy"]
+[ext_resource type="Texture2D" uid="uid://bq1vjshy2qlv4" path="res://assets/skins/stariy_bog.jpg" id="7_hqns4"]
+[ext_resource type="Texture2D" uid="uid://buo503dtioi6n" path="res://assets/skins/homyak.jpg" id="8_x0ka3"]
+
+[sub_resource type="Theme" id="Theme_vtl45"]
+
+[node name="Node2D" type="Node2D" unique_id=565189708]
+
+[node name="Control" type="Control" parent="." unique_id=1336771667]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+script = ExtResource("1_0e48y")
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=1122944437]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.033853278, 0.033853278, 0.033853274, 1)
+
+[node name="TextureButton" type="TextureButton" parent="Control" unique_id=2034310709]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -282.5
+offset_top = -212.75
+offset_right = 282.5
+offset_bottom = 212.75
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(282.5, 212.75)
+texture_normal = ExtResource("2_epypp")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="PassiveUpgradeButton" type="Button" parent="Control" unique_id=2138106504]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -55.0
+offset_top = -90.0
+offset_right = 55.0
+offset_bottom = -59.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_vtl45")
+text = "ПРОКОЧАЦА"
+
+[node name="CoinsLabel" type="Label" parent="Control" unique_id=2049742164]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -33.0
+offset_top = 43.0
+offset_right = 33.0
+offset_bottom = 66.0
+grow_horizontal = 2
+text = "MINETKI"
+
+[node name="PassiveIncomeLabel" type="Label" parent="Control" unique_id=1877933679]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -33.0
+offset_top = 63.0
+offset_right = 33.0
+offset_bottom = 86.0
+grow_horizontal = 2
+text = "MINETKI"
+
+[node name="ClickUpgradeButton" type="Button" parent="Control" unique_id=1392685160]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -55.0
+offset_top = -55.0
+offset_right = 55.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_vtl45")
+text = "ПРОКОЧАЦА"
+
+[node name="MusicToggleButton" type="Button" parent="Control" unique_id=1317073671]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 610.0
+offset_right = 257.0
+offset_bottom = 641.0
+mouse_filter = 1
+toggle_mode = true
+action_mode = 0
+text = "ВЫКЛ РЕП ПРО ТВИРИКА 2026"
+
+[node name="Timer" type="Timer" parent="Control" unique_id=773028191]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Control" unique_id=1286484273]
+stream = ExtResource("3_epypp")
+
+[node name="ColorRect2" type="ColorRect" parent="Control" unique_id=22606261]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 125.66
+offset_right = 230.0
+offset_bottom = 517.6592
+mouse_filter = 2
+color = Color(0.08468992, 0.08468992, 0.08468992, 1)
+
+[node name="LitvinSkin" type="Button" parent="Control/ColorRect2" unique_id=1770733708]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 94.34
+offset_right = 177.0
+offset_bottom = 148.34
+tooltip_text = "+100 м/c к пассивке"
+text = "Литвин
+1к"
+alignment = 0
+
+[node name="TextureRect" type="TextureRect" parent="Control/ColorRect2/LitvinSkin" unique_id=2006108031]
+layout_mode = 0
+offset_left = 107.0
+offset_top = 7.0
+offset_right = 147.0
+offset_bottom = 47.0
+texture = ExtResource("4_rj586")
+expand_mode = 1
+
+[node name="PozzySkin" type="Button" parent="Control/ColorRect2" unique_id=233344302]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 152.34
+offset_right = 177.0
+offset_bottom = 206.34
+tooltip_text = "+450 м/с к пассивке"
+text = "Поззи
+15к"
+alignment = 0
+
+[node name="TextureRect" type="TextureRect" parent="Control/ColorRect2/PozzySkin" unique_id=1585320362]
+layout_mode = 0
+offset_left = 107.0
+offset_top = 7.0
+offset_right = 147.0
+offset_bottom = 47.0
+texture = ExtResource("5_4d7sh")
+expand_mode = 1
+
+[node name="MellstroySkin" type="Button" parent="Control/ColorRect2" unique_id=684867266]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 210.34
+offset_right = 177.0
+offset_bottom = 264.34
+tooltip_text = "+1000 м/с к пассивке
++100 к клику"
+text = "Меллстрой
+25к"
+alignment = 0
+
+[node name="TextureRect" type="TextureRect" parent="Control/ColorRect2/MellstroySkin" unique_id=74897938]
+layout_mode = 0
+offset_left = 107.0
+offset_top = 7.0
+offset_right = 147.0
+offset_bottom = 47.0
+texture = ExtResource("6_ir8iy")
+expand_mode = 1
+
+[node name="StariyBogSkin" type="Button" parent="Control/ColorRect2" unique_id=745811976]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 269.34
+offset_right = 177.0
+offset_bottom = 323.34
+tooltip_text = "+5000 м/с к пассивке
++500 к клику"
+text = "Старый бог
+50к"
+alignment = 0
+
+[node name="TextureRect" type="TextureRect" parent="Control/ColorRect2/StariyBogSkin" unique_id=2130084554]
+layout_mode = 0
+offset_left = 107.0
+offset_top = 7.0
+offset_right = 147.0
+offset_bottom = 47.0
+texture = ExtResource("7_hqns4")
+expand_mode = 1
+
+[node name="HomyakSkin" type="Button" parent="Control/ColorRect2" unique_id=1074021222]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 327.34
+offset_right = 177.0
+offset_bottom = 381.34
+tooltip_text = "+50000 м/с к пассивке
++1500 к клику"
+text = "Хомяк
+1кк"
+alignment = 0
+
+[node name="TextureRect" type="TextureRect" parent="Control/ColorRect2/HomyakSkin" unique_id=1755027260]
+layout_mode = 0
+offset_left = 107.0
+offset_top = 7.0
+offset_right = 147.0
+offset_bottom = 47.0
+texture = ExtResource("8_x0ka3")
+expand_mode = 1
+
+[node name="DefaultSkin" type="Button" parent="Control/ColorRect2" unique_id=1409820312]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 37.339996
+offset_right = 177.0
+offset_bottom = 91.34
+tooltip_text = "ничего не дает"
+text = "Дефолт
+Бесплатно"
+alignment = 0
+
+[node name="TextureRect" type="TextureRect" parent="Control/ColorRect2/DefaultSkin" unique_id=656786493]
+layout_mode = 0
+offset_left = 107.0
+offset_top = 7.0
+offset_right = 147.0
+offset_bottom = 47.0
+texture = ExtResource("2_epypp")
+expand_mode = 1
+
+[node name="Skins" type="Label" parent="Control/ColorRect2" unique_id=1572844578]
+layout_mode = 0
+offset_left = 71.0
+offset_top = 6.3399963
+offset_right = 125.0
+offset_bottom = 29.339996
+text = "Скины"
+
+[connection signal="pressed" from="Control/TextureButton" to="Control" method="_on_click_button_pressed"]
+[connection signal="pressed" from="Control/PassiveUpgradeButton" to="Control" method="_on_passive_upgrade_button_pressed"]
+[connection signal="pressed" from="Control/ClickUpgradeButton" to="Control" method="_on_click_upgrade_button_pressed"]
+[connection signal="pressed" from="Control/MusicToggleButton" to="Control" method="_on_music_toggle_button_pressed"]
+[connection signal="timeout" from="Control/Timer" to="Control" method="_on_passive_timer_timeout"]
+[connection signal="pressed" from="Control/ColorRect2/LitvinSkin" to="Control" method="_on_btn_litvin_pressed"]
+[connection signal="pressed" from="Control/ColorRect2/PozzySkin" to="Control" method="_on_btn_pozzy_pressed"]
+[connection signal="pressed" from="Control/ColorRect2/MellstroySkin" to="Control" method="_on_btn_mellstroy_pressed"]
+[connection signal="pressed" from="Control/ColorRect2/StariyBogSkin" to="Control" method="_on_btn_stariy_bog_pressed"]
+[connection signal="pressed" from="Control/ColorRect2/HomyakSkin" to="Control" method="_on_btn_homyak_pressed"]
+[connection signal="pressed" from="Control/ColorRect2/DefaultSkin" to="Control" method="_on_btn_default_pressed"]
