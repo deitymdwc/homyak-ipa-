@@ -3,7 +3,7 @@ name: iOS IPA Build
 on:
   push:
     branches: [ main, master ]
-  workflow_dispatch: # Позволяет запускать сборку вручную из вкладки Actions
+  workflow_dispatch:
 
 jobs:
   build-ios:
@@ -13,20 +13,32 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 1. Установка Godot Engine на мак-сервер
+      # 1. Установка Godot Engine
       - name: Setup Godot Engine
         uses: chickensoft-games/setup-godot@v2
         with:
-          version: 4.7.2 # Укажите вашу точную версию Godot (например: 4.2.2, 4.3)
+          version: 4.3.0 # Укажите точную версию своего Godot (например, 4.3.0 или 4.2.2)
           use-dotnet: false
 
-      # 2. Подготовка пресета экспорта и шаблонов
+      # 2. Загрузка и установка шаблонов экспорта Godot (Export Templates)
+      - name: Download Godot Export Templates
+        run: |
+          GODOT_VERSION="4.7.2.stable" # Поменяйте на вашу версию, например: 4.2.2.stable
+          TEMPLATES_DIR="$HOME/Library/Application Support/Godot/export_templates/${GODOT_VERSION}"
+          mkdir -p "$TEMPLATES_DIR"
+          
+          curl -LO "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_export_templates.tpz"
+          unzip Godot_v${GODOT_VERSION}_export_templates.tpz
+          mv templates/* "$TEMPLATES_DIR/"
+          rm -rf templates Godot_v${GODOT_VERSION}_export_templates.tpz
+
+      # 3. Экспорт Xcode-проекта из Godot
       - name: Export Xcode Project from Godot
         run: |
           mkdir -p build/ios
-          godot --headless --export-release "iOS" build/ios/Gomyak.xcodeproj
+          godot --headless --export-release "iOS" build/ios/Clicker.xcodeproj
 
-      # 3. Компиляция через xcodebuild и упаковывание в .ipa
+      # 4. Компиляция Xcode и сборка .ipa
       - name: Build Xcode Project to .ipa
         run: |
           cd build/ios
@@ -39,12 +51,11 @@ jobs:
                      CODE_SIGNING_ALLOWED=NO \
                      clean build
           
-          # Упаковка скомпилированной .app папки в структуры Payload/*.ipa
           mkdir -p Payload
-          cp -R build/Release-iphoneos/Gomyak.app Payload/
-          zip -r Gomyak.ipa Payload
+          cp -R build/Release-iphoneos/gomyak.app Payload/
+          zip -r gomyak.ipa Payload
 
-      # 4. Выгрузка готового .ipa файла в артефакты
+      # 5. Сохранение .ipa в артефакты
       - name: Upload IPA Artifact
         uses: actions/upload-artifact@v4
         with:
