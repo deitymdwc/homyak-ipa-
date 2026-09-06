@@ -37,9 +37,12 @@ jobs:
         with:
           version: 4.3.0
           use-dotnet: false
+
       - name: Fill all empty icon slots
-          run: |
-            sed -i 's/icons\/\([^=]*\)=""/icons\/\1="res:\/\/icon.svg"/g' export_presets.cfg
+        run: |
+          sed -i 's/icons\/[^\"]*=""/icons\/app_store_1024x1024="res:\/\/icon.svg"/g' export_presets.cfg
+          sed -i 's/=""/="res:\/\/icon.svg"/g' export_presets.cfg
+          
       # 3. Импорт ресурсов и Экспорт Xcode-проекта
       - name: Import Assets & Export Xcode Project
         run: |
