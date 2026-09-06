@@ -38,10 +38,15 @@ jobs:
           version: 4.3.0
           use-dotnet: false
 
-      # 3. Экспорт Xcode-проекта из Godot
-      - name: Export Xcode Project
+      # 3. Импорт ресурсов и Экспорт Xcode-проекта
+      - name: Import Assets & Export Xcode Project
         run: |
           mkdir -p build/ios
+
+          # Шаг 1: Принудительная импортация ресурсов и генерация файлов UID (.godot)
+          godot --headless --editor --quit || true
+
+          # Шаг 2: Повторный генерационный проход экспорта
           godot --headless --export-release "iOS" build/ios/Clicker.xcodeproj
 
       # 4. Компиляция в .ipa через xcodebuild
