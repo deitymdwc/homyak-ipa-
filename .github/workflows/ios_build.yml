@@ -16,14 +16,20 @@ jobs:
       # 1. Автоматическая установка Godot 4.3 и ВСЕХ его шаблонов (включая ios.zip)
       - name: Download Godot & Export Templates
         run: |
-          GODOT_VERSION="4.3-stable"
-          mkdir -p "$HOME/Library/Application Support/Godot/export_templates/4.3.stable"
+          TEMPLATE_DIR="$HOME/Library/Application Support/Godot/export_templates/4.3.stable"
+          mkdir -p "$TEMPLATE_DIR"
           
-          # Скачиваем официальные шаблоны с зеркала TuxFamily (без проблем с редиректами GitHub)
-          curl -L "https://downloads.tuxfamily.org/godotengine/4.3/Godot_v4.3-stable_export_templates.tpz" -o templates.zip
-          unzip templates.zip
-          mv templates/* "$HOME/Library/Application Support/Godot/export_templates/4.3.stable/"
-          rm -rf templates templates.zip
+          # Флаги -fL и User-Agent гарантируют корректную загрузку без сохранения HTML-ошибок
+          curl -fL -A "Mozilla/5.0" "https://downloads.tuxfamily.org/godotengine/4.3/Godot_v4.3-stable_export_templates.tpz" -o templates.tpz
+          
+          # Распаковываем .tpz как стандартный zip-архив
+          unzip -q templates.tpz -d temp_templates
+          
+          # Перемещаем содержимое директории templates в целевую папку Godot
+          mv temp_templates/templates/* "$TEMPLATE_DIR/"
+          
+          # Очищаем временные файлы
+          rm -rf temp_templates templates.tpz
 
       # 2. Установка самого бинарника Godot Engine 4.3
       - name: Setup Godot Engine
