@@ -18,17 +18,17 @@ jobs:
         run: |
           TEMPLATE_DIR="$HOME/Library/Application Support/Godot/export_templates/4.3.stable"
           mkdir -p "$TEMPLATE_DIR"
-          
-          # Флаги -fL и User-Agent гарантируют корректную загрузку без сохранения HTML-ошибок
-          curl -fL -A "Mozilla/5.0" "https://downloads.tuxfamily.org/godotengine/4.3/Godot_v4.3-stable_export_templates.tpz" -o templates.tpz
-          
-          # Распаковываем .tpz как стандартный zip-архив
+
+          # Скачивание напрямую с GitHub Releases (официальный зеркальный источник)
+          curl -fL "https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_export_templates.tpz" -o templates.tpz
+
+          # Распаковка во временную папку
           unzip -q templates.tpz -d temp_templates
-          
-          # Перемещаем содержимое директории templates в целевую папку Godot
+
+          # Перемещение файлов шаблонов
           mv temp_templates/templates/* "$TEMPLATE_DIR/"
-          
-          # Очищаем временные файлы
+
+          # Очистка
           rm -rf temp_templates templates.tpz
 
       # 2. Установка самого бинарника Godot Engine 4.3
