@@ -17,7 +17,7 @@ jobs:
       - name: Setup Godot Engine
         uses: chickensoft-games/setup-godot@v2
         with:
-          godot-version: '4.7.2' # Укажите вашу точную версию Godot (например: 4.2.2, 4.3)
+          version: 4.7.2 # Укажите вашу точную версию Godot (например: 4.2.2, 4.3)
           use-dotnet: false
 
       # 2. Подготовка пресета экспорта и шаблонов
