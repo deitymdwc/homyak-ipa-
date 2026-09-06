@@ -56,11 +56,7 @@ jobs:
       - name: Import Assets & Export Xcode Project
         run: |
           mkdir -p build/ios
-
-          # Шаг 1: Принудительная импортация ресурсов и генерация файлов UID (.godot)
           godot --headless --editor --quit || true
-
-          # Шаг 2: Повторный генерационный проход экспорта
           godot --headless --export-release "iOS" build/ios/Clicker.xcodeproj
 
       # 4. Компиляция в .ipa через xcodebuild
@@ -75,7 +71,7 @@ jobs:
                      CODE_SIGNING_REQUIRED=NO \
                      CODE_SIGNING_ALLOWED=NO \
                      clean build
-          
+
           mkdir -p Payload
           cp -R build/Release-iphoneos/Clicker.app Payload/
           zip -r Clicker.ipa Payload
