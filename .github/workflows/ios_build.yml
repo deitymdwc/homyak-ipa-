@@ -42,11 +42,14 @@ jobs:
         run: |
           python3 -c "
           with open('export_presets.cfg', 'r') as f:
-              content = f.read()
-          import re
-          content = re.sub(r'icons/([^=]*)=\"\"', r'icons/\1=\"res://icon.svg\"', content)
+              lines = f.readlines()
           with open('export_presets.cfg', 'w') as f:
-              f.write(content)
+              for line in lines:
+                  if line.strip().startswith('icons/') and '=""' in line:
+                      key = line.split('=')[0]
+                      f.write(f'{key}=\"res://icon.svg\"\n')
+                  else:
+                      f.write(line)
           "
 
       # 3. Импорт ресурсов и Экспорт Xcode-проекта
