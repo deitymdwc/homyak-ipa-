@@ -13,21 +13,32 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 1. Автоматическая установка Godot и ЕГО ЖЕ шаблонов экспорта
+      # 1. Установка Godot 4.3.0
       - name: Setup Godot Engine
         uses: chickensoft-games/setup-godot@v2
         with:
           version: 4.3.0
           use-dotnet: false
-          export-templates: true # Экшен сам скачает нужные шаблоны экспорта
 
-      # 2. Экспорт Xcode-проекта из Godot
+      # 2. Скачивание и правильная распаковка шаблонов 4.3.stable (включая ios.zip)
+      - name: Download Godot Export Templates
+        run: |
+          GODOT_VERSION="4.3.stable"
+          TEMPLATES_DIR="$HOME/Library/Application Support/Godot/export_templates/${GODOT_VERSION}"
+          mkdir -p "$TEMPLATES_DIR"
+          
+          curl -L "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_export_templates.tpz" -o templates.zip
+          unzip templates.zip
+          mv templates/* "$TEMPLATES_DIR/"
+          rm -rf templates templates.zip
+
+      # 3. Экспорт Xcode-проекта
       - name: Export Xcode Project from Godot
         run: |
           mkdir -p build/ios
           godot --headless --export-release "iOS" build/ios/Clicker.xcodeproj
 
-      # 3. Компиляция и упаковывание в .ipa
+      # 4. Компиляция и упаковывание в .ipa
       - name: Build Xcode Project to .ipa
         run: |
           cd build/ios
@@ -44,7 +55,7 @@ jobs:
           cp -R build/Release-iphoneos/Clicker.app Payload/
           zip -r Clicker.ipa Payload
 
-      # 4. Выгрузка готового .ipa в артефакты
+      # 5. Выгрузка .ipa
       - name: Upload IPA Artifact
         uses: actions/upload-artifact@v4
         with:
