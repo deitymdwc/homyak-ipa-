@@ -1,0 +1,52 @@
+name: iOS IPA Build
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch: # Позволяет запускать сборку вручную из вкладки Actions
+
+jobs:
+  build-ios:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 1. Установка Godot Engine на мак-сервер
+      - name: Setup Godot Engine
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          godot-version: '4.7.2' # Укажите вашу точную версию Godot (например: 4.2.2, 4.3)
+          use-dotnet: false
+
+      # 2. Подготовка пресета экспорта и шаблонов
+      - name: Export Xcode Project from Godot
+        run: |
+          mkdir -p build/ios
+          godot --headless --export-release "iOS" build/ios/Gomyak.xcodeproj
+
+      # 3. Компиляция через xcodebuild и упаковывание в .ipa
+      - name: Build Xcode Project to .ipa
+        run: |
+          cd build/ios
+          xcodebuild -project Clicker.xcodeproj \
+                     -scheme Clicker \
+                     -configuration Release \
+                     -sdk iphoneos \
+                     CODE_SIGN_IDENTITY="" \
+                     CODE_SIGNING_REQUIRED=NO \
+                     CODE_SIGNING_ALLOWED=NO \
+                     clean build
+          
+          # Упаковка скомпилированной .app папки в структуры Payload/*.ipa
+          mkdir -p Payload
+          cp -R build/Release-iphoneos/Gomyak.app Payload/
+          zip -r Gomyak.ipa Payload
+
+      # 4. Выгрузка готового .ipa файла в артефакты
+      - name: Upload IPA Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Homyak Kombat
+          path: build/ios/gomyak.ipa
